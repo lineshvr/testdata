@@ -1,0 +1,196 @@
+Feature('Run certification.openid OIDC confirmance test for ID-porten');
+
+Before(async (I) => {
+	// start & login
+
+});
+Scenario('c2id Tests', async ({ I }) => {
+	I.clearCookie();
+	I.clearCookie("IDPORTEN_AUTH");
+	I.clearCookie("_utmz");
+	I.clearCookie("JSESSIONID");
+	I.clearCookie("_utma");
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('Log in with Google');
+	I.fillField('identifier','codeceptuser@gmail.com');
+	I.click('Neste');
+
+	I.fillField('password','1234@Admin');
+	I.click('Neste');
+	//pause();
+	//oidcc-server
+
+	await I.click('//*[@id="planItems"]/div[1]/div[2]/button[1]');
+	await I.see('Proceed with test');
+	await I.click('Proceed with test');
+	await I.click('Velg TestId2 med acr 4');
+	//Velg TestId1 med acr 3
+	await I.click('Autentiser');
+	await I.click('the test results page');
+	await I.see('PASSED');
+	
+	
+	//oidcc-response-type-missing
+	await I.openNewTab();
+	await I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	await I.click('//*[@id="planItems"]/div[2]/div[2]/button[1]');
+	await I.see('Proceed with test');
+	await I.click('Proceed with test');
+	await I.click('the test results page');
+	await I.see('PASSED');
+
+	await I.openNewTab();
+	await I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	await I.click('//*[@id="planItems"]/div[3]/div[2]/button[1]');
+	await I.see('Proceed with test');
+	await I.click('Proceed with test');
+	await I.click('the test results page');
+	await I.see('PASSED');
+
+	await I.openNewTab();
+	await I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	await I.click('//*[@id="planItems"]/div[4]/div[2]/button[1]');
+
+	let numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	await I.see('PASSED');
+	
+	I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[5]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	await I.see('PASSED');
+
+	//Test Name:oidcc-ensure-request-without-nonce-succeeds-for-code-flow
+	await I.openNewTab();
+	await I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	await I.click('//*[@id="planItems"]/div[6]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	await I.see('PASSED');
+	
+	//oidcc-scope-profile
+    I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[7]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	I.see('SKIPPED');
+
+	
+	//oidcc-scope-email
+	I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[8]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	I.see('SKIPPED');
+	
+	
+	//oidcc-scope-address
+	I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[9]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	I.see('SKIPPED');
+	
+	//oidcc-scope-phone
+	I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[10]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	I.see('SKIPPED');
+	
+	//oidcc-scope-all
+	I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[11]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	I.see('SKIPPED');
+	
+	//oidcc-ensure-other-scope-order-succeeds
+	I.openNewTab();
+	I.amOnPage('https://www.certification.openid.net/plan-detail.html?plan=sm1fpdTbBwMET');
+	I.click('//*[@id="planItems"]/div[12]/div[2]/button[1]');
+	numberOfElements = await I.grabNumberOfVisibleElements("//*[@id=\"runningTestBrowser\"]/fieldset/dl/dt/button");
+
+	if (numberOfElements >= 1) {
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	} else {
+		await I.click("#reloadBtn");
+		await I.click('Proceed with test');
+		await I.click('the test results page');
+	}
+	I.see('SKIPPED');
+	
+	
+});

@@ -1,0 +1,27 @@
+{
+  "name": "idporten-tests",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "codeceptjs": "codeceptjs run --steps  --reporter mocha-multi",
+    "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps --plugins allure",
+    "codeceptjs:ui": "codecept-ui --app"
+  },
+  "devDependencies": {
+    "@codeceptjs/configure": "^0.6.2",
+    "@codeceptjs/ui": "^0.4.3",
+    "codeceptjs": "^3.0.5",
+    "puppeteer": "^5.5.0"
+  },
+  "dependencies": {
+    "codeceptjs-assert": "^0.0.4",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.12.3",
+    "lodash": "^4.17.20",
+    "mocha-junit-reporter": "^2.0.0",
+    "mochawesome": "^6.2.2",
+    "playwright": "^1.8.0",
+    "uuidv4": "^6.2.6"
+  }
+}
